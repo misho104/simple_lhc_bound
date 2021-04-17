@@ -1,11 +1,28 @@
-simple_lhc_bound
+Simple LHC bound
 ================
 
 A Mathematica/Python tool to reinterpret LHC_ constraints.
 
 This repository collects data files for recent constraints provided by LHC_ experiments and provides small tools to use the data.
 
-Contributions are welcome. Preliminary results are usually not included.
+- We generally use ``GeV``, ``fb``, ``m``, and ``s`` in analysis codes.
+- Preliminary results are usually not included.
+- Contributions are welcome.
+
+
+Usage
+-----
+
+First, execute ``make`` in this directory (for some preparations).
+Then one can call, from Mathematica,
+
+.. code-block:: wolfram
+
+   AppendTo[$Path, (path to SimpleLHCBound.m)];
+   <<SimpleLHCBound`;
+   LHCBoundInfo["xxxx.yyyyy"]
+   LHCBoundUsage["xxxxx.yyyy-NAME"]
+   LHCBound["xxxxx.yyyyy-NAME"][m1, m2]
 
 
 License
