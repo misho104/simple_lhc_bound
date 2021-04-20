@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2021-04-17 19:15:37> *)
+(* Time-Stamp: <2021-04-20 19:56:41> *)
 
 (* :Title: Simple LHC Bound *)
 (* :Context: SimpleLHCBound` *)
@@ -20,6 +20,9 @@
 
 BeginPackage["SimpleLHCBound`"];
 
+Unprotect[LHCBoundTable, LHCBound, LHCBoundUsage, LHCBoundInfo];
+Quiet[Remove["SimpleLHCBound`*", "SimpleLHCBound`Private`*"], Remove::rmnsm];
+
 (* Configuration *)
 $LHCBoundDirectory = DirectoryName[$InputFileName];
 
@@ -31,9 +34,6 @@ FMT = StringReplace[{
   RegularExpression["'(\\w+)'"] -> "\!\(\*StyleBox[\"\[OpenCurlyDoubleQuote]$1\[CloseCurlyDoubleQuote]\", \"MR\"]\)",  (* quoted fixed string *)
   RegularExpression["`(\\w+)`"] -> "\!\(\*StyleBox[\"$1\", \"MR\"]\)"     (* fixed string *)
 }]@*StringTrim;
-
-Unprotect[LHCBoundTable, LHCBound, LHCBoundUsage, LHCBoundInfo];
-Remove[LHCBoundTable, LHCBound, LHCBoundUsage, LHCBoundInfo];
 
 LHCBound::usage = FMT["
 *LHCBound*[#name#] contains a interpolation function describing the constraint #name#.
@@ -57,6 +57,7 @@ Remove[FMT];
 LHCBound::invalid = "The name \"`1`\" is invalid as a constraint name.";
 LHCBound::notfound = "LHC Constraint \"`1`\" is not found.";
 LHCBound::undefined = "LHC Constraint \"`1`\" found but `2` not provided.";
+LHCBound::unprepared = "This constraint is not available because data files are not prepared. See README.";
 
 Begin["`Private`"];
 (*protected = Unprotect[ Sin, Cos ]*)
@@ -107,9 +108,14 @@ LoadData[name_] := Module[{paper, key, path},
   path = FileNameJoin[{$LHCBoundDirectory, paper, "init.m"}];
   If[FileExistsQ[path], Get[path]]]
 
+Attributes[IfDataFileExists] = {HoldAll};
+IfDataFileExists[path_, result_] := Block[{},
+  If[FileExistsQ[path], Return[Evaluate[result]]];
+  <|"table"->None, "usage"->"This constraint is not available because data files are not prepared. See README."|>
+]
 
 (* helper functions *)
-SafeLog10[x_?NumericQ] := If[x>0, Log10[x], -99999];
+SafeLog10[x_?NumericQ] := If[x>0, Log10[x], N[MachinePrecision]]; (* "0" in data actually corresponds no bound. *)
 
 (* Delaunay Interpolation Helper *)
 Needs["NDSolve`FEM`"];
