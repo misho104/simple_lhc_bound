@@ -8,7 +8,7 @@ $\sqrt{s}$ = 13TeV
 - <http://cms-results.web.cern.ch/cms-results/public-results/publications/EXO-19-010/>
 - Journal:
   [arXiv:2004.05153](https://arxiv.org/abs/2004.05153),
-  [Phys. Lett. B 806 (2020) 135502](http://dx.doi.org/10.1016/j.physletb.2020.135502)
+  [Phys. Lett. **B 806** (2020) 135502](http://doi.org/10.1016/j.physletb.2020.135502)
 - Data source: <https://www.hepdata.net/record/ins1790827>
 - Data source DOI: <https://doi.org/10.17182/hepdata.95354.v2>
 - Data license: [CC0](https://creativecommons.org/cc0)
@@ -32,6 +32,7 @@ LHCBound["2004.05153-Wino"][10^-9, 200]
 
 ```bibtex
 @article{Sirunyan:2020pjd,
+    author = "Sirunyan, Albert M and others",
     collaboration = "CMS",
     title = "{Search for disappearing tracks in proton-proton collisions at $\sqrt{s} =$ 13 TeV}",
     eprint = "2004.05153",
