@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2021-04-20 19:56:41> *)
+(* Time-Stamp: <2021-04-21 19:57:52> *)
 
 (* :Title: Simple LHC Bound *)
 (* :Context: SimpleLHCBound` *)
@@ -62,6 +62,7 @@ LHCBound::unprepared = "This constraint is not available because data files are 
 Begin["`Private`"];
 (*protected = Unprotect[ Sin, Cos ]*)
 
+$Debug = False;
 
 LHCBound[name_] := GetBoundData[name, "function"]
 LHCBoundTable[name_] := GetBoundData[name, "table"]
@@ -147,6 +148,17 @@ IP["LogLog>Log", table_, OptionsPattern[]] := With[{
   },
   10^(ip[Log10[#1], Log10[#2]])&]
 
+IP["LinLin>Log:Delaunay", table_, OptionsPattern[]] := Module[{
+   key = {#[[1]], #[[2]]} &/@ table,
+   value = SafeLog10[#[[3]]] &/@ table,
+   mesh, ip, delta = 0.0001},
+  (* squeeze a bit *)
+  Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
+        MeshRegion::dgcellr];
+  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True]]];
+  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
+  10^(ip[#1, #2])&]
+
 IP["LogLog>Log:Delaunay", table_, OptionsPattern[]] := Module[{
    key = {Log10[#[[1]]], Log10[#[[2]]]} &/@ table,
    value = SafeLog10[#[[3]]] &/@ table,
@@ -154,6 +166,7 @@ IP["LogLog>Log:Delaunay", table_, OptionsPattern[]] := Module[{
   (* squeeze a bit *)
   Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
         MeshRegion::dgcellr];
+  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True]]];
   ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
   10^(ip[Log10[#1], Log10[#2]])&]
 

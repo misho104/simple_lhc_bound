@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2021-04-20 20:28:39> *)
+(* Time-Stamp: <2021-04-21 19:56:50> *)
 
 (* Copyright 2021 Sho Iwamoto / Misho
    This file is licensed under the Apache License, Version 2.0.
@@ -60,7 +60,7 @@ BoundData["2012.08600-ll1LR"] = IfDataFileExists["data/Figure_014.csv", <|
 Do[
   AssociateTo[BoundData[key], "function" ->
     If[Head[BoundData[key]["table"]] === List,
-      IP["LogLog>Log:Delaunay", BoundData[key]["table"], InterpolationOrder->1],
+      IP["LinLin>Log:Delaunay", BoundData[key]["table"], InterpolationOrder->1],
       (Message[LHCBound::unprepared]; Abort[]) &
     ]
   ], {key, {"2012.08600-gg", "2012.08600-WZ", "2012.08600-bb1", "2012.08600-qq8", "2012.08600-ll1LR"}}
