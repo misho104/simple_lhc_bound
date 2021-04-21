@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2021-04-21 19:57:52> *)
+(* Time-Stamp: <2021-04-21 20:48:32> *)
 
 (* :Title: Simple LHC Bound *)
 (* :Context: SimpleLHCBound` *)
@@ -110,9 +110,10 @@ LoadData[name_] := Module[{paper, key, path},
   If[FileExistsQ[path], Get[path]]]
 
 Attributes[IfDataFileExists] = {HoldAll};
-IfDataFileExists[path_, result_] := Block[{},
-  If[FileExistsQ[path], Return[Evaluate[result]]];
-  <|"table"->None, "usage"->"This constraint is not available because data files are not prepared. See README."|>
+IfDataFileExists[code_] := With[{imported = Evaluate[code]},
+  If[FailureQ[imported["table"]],
+    Return[<|"table"->None, "usage"->"This constraint is not available because data files are not prepared. See README2."|>]];
+  imported
 ]
 
 (* helper functions *)
