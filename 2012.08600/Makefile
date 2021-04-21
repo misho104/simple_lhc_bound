@@ -1,4 +1,4 @@
-.PHONY: all dev
+.PHONY: all dev clean
 
 include ../Makefile.config
 

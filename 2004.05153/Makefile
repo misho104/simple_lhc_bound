@@ -1,4 +1,4 @@
-.PHONY: all dev
+.PHONY: all dev clean
 
 XS = $(addsuffix .xs,\
 		13TeV.n2x1+-.wino 13TeV.x1x1.wino 13TeV.n2x1+-.hino.deg 13TeV.x1x1.hino.deg \
