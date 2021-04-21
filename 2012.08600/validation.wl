@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2021-4-20 20:28:15> *)
+(* Time-Stamp: <2021-4-21 18:59:33> *)
 
 (* Copyright 2021 Sho Iwamoto / Misho
    This file is licensed under the Apache License, Version 2.0.
@@ -14,8 +14,8 @@ $Path = Append[$Path, ParentDirectory[NotebookDirectory[]]]//DeleteDuplicates;
 Get["../contrib/PlotTools.m"];
 <<SimpleLHCBound`
 LHCBoundInfo["2012.08600"]
-LHCBoundUsage["2012.08600-ll"]
-LHCBound["2012.08600-ll"][300, 50]
+LHCBoundUsage["2012.08600-ll1LR"]
+LHCBound["2012.08600-ll1LR"][300, 50]
 
 
 (* if "xs" files are not found,
@@ -32,6 +32,6 @@ theory["seLR"] = Get["13TeV.slepslep.xs"][[2;;]] // SimpleLHCBound`Private`IP["L
 
 ContourPlot[LHCBound["2012.08600-gg"][mg, mn] / theory["gg"][mg], {mg, 1100, 2350}, {mn, 100, 2000}, Contours->{1}, ContourShading->None]
 ContourPlot[LHCBound["2012.08600-WZ"][m2, m1] / theory["WZ"][m2], {m2, 100, 900}, {m1, 0, 450}, Contours->{1}, ContourShading->None]
-ContourPlot[LHCBound["2012.08600-bb"][mb, m2] / (theory["sb10"][mb]/10), {mb, 800, 1800}, {m2, 200, 1800}, Contours->{1}, ContourShading->None]
-ContourPlot[LHCBound["2012.08600-qq"][mq, m2] / (theory["sb10"][mq]/10*8), {mq, 1000, 2200}, {m2, 200, 2000}, Contours->{1}, ContourShading->None]
-ContourPlot[LHCBound["2012.08600-ll"][ml, m1] / theory["seLR"][ml], {ml, 100, 1000}, {m1, 0, 600}, Contours->{1}, ContourShading->None]
+ContourPlot[LHCBound["2012.08600-bb1"][mb, m2] / (theory["sb10"][mb]/10*1), {mb, 800, 1800}, {m2, 200, 1800}, Contours->{1}, ContourShading->None]
+ContourPlot[LHCBound["2012.08600-qq8"][mq, m2] / (theory["sb10"][mq]/10*8), {mq, 1000, 2200}, {m2, 200, 2000}, Contours->{1}, ContourShading->None]
+ContourPlot[LHCBound["2012.08600-ll1LR"][ml, m1] / theory["seLR"][ml], {ml, 100, 1000}, {m1, 0, 600}, Contours->{1}, ContourShading->None]
