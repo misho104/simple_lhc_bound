@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2021-04-21 20:48:32> *)
+(* Time-Stamp: <2022-04-06 15:36:33> *)
 
 (* :Title: Simple LHC Bound *)
 (* :Context: SimpleLHCBound` *)
@@ -159,6 +159,17 @@ IP["LinLin>Log:Delaunay", table_, OptionsPattern[]] := Module[{
   If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True]]];
   ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
   10^(ip[#1, #2])&]
+
+IP["LogLin>Log:Delaunay", table_, OptionsPattern[]] := Module[{
+   key = {Log10[#[[1]]], #[[2]]} &/@ table,
+   value = SafeLog10[#[[3]]] &/@ table,
+   mesh, ip, delta = 0.0001},
+  (* squeeze a bit *)
+  Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
+        MeshRegion::dgcellr];
+  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True]]];
+  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
+  10^(ip[Log10[#1], #2])&]
 
 IP["LogLog>Log:Delaunay", table_, OptionsPattern[]] := Module[{
    key = {Log10[#[[1]]], Log10[#[[2]]]} &/@ table,
