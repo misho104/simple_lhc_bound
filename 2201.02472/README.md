@@ -1,6 +1,6 @@
 # ATLAS 2201.02472
 
-Search for long-lived charginos based on a disappearing-track signature using 136 fb$^{-1}$ of pp collisions at $\sqrt{s}$ = 13TeV with the ATLAS detector 
+Search for long-lived charginos based on a disappearing-track signature using 136 fb$^{-1}$ of pp collisions at $\sqrt{s}$ = 13TeV with the ATLAS detector
 
 **ATLAS** Collaboration, `SUSY-2018-19`
 
