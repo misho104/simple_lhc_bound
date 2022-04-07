@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2021-04-21 12:51:26> *)
+(* Time-Stamp: <2022-04-07 17:33:51> *)
 
 (* Copyright 2021 Sho Iwamoto / Misho
    This file is licensed under the Apache License, Version 2.0.
@@ -17,7 +17,7 @@ BoundData["2004.05153"] = <|
     "arXiv"         -> "2004.05153",
     "summary"       -> "Disappearing track",
     "ECM"           -> "13 TeV",
-    "luminosity"    -> "101 /fb"
+    "luminosity"    -> {"140 /fb", "101 /fb"}
   |>
 |>;
 
@@ -44,6 +44,10 @@ BoundData["2004.05153-Higgsino"] = <|
 (* use "linear" (order = 1) interpolation on LogLogToLog Delaunay mesh *)
 Do[AssociateTo[BoundData[key], "function" -> IP["LogLog>Log:Delaunay", BoundData[key]["table"], InterpolationOrder->1]],
   {key, {"2004.05153-Wino", "2004.05153-Higgsino"}}]
+
+Print["Warning for 2004.05153:
+An inconsistency in found in the Higgsino data, which thus should be used carefully.
+See validation.wl."]
 
 End[];
 EndPackage[];

@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2021-4-21 20:04:51> *)
+(* Time-Stamp: <2022-4-7 16:49:48> *)
 
 (* Copyright 2021 Sho Iwamoto / Misho
    This file is licensed under the Apache License, Version 2.0.
@@ -31,16 +31,33 @@ theory["seLR"][m_] := theory["seL"][m]+theory["seR"][m]
 
 
 SetOptions[ContourPlot, Contours->{1}, ContourShading->None];
-ContourPlot[LHCBound["1908.08215-CC/WW"]  [mc, m1] / theory["CC"][mc], {mc, 100,  500}, {m1, 0, 220}]
-ContourPlot[LHCBound["1908.08215-CC/slep"][mc, m1] / theory["CC"][mc], {mc, 100, 1200}, {m1, 0, 700}]
-Show[{
-  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seL"][ml]*2),  {ml,100,800}, {m1,0,500}, ContourStyle->Blue],
-  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seR"][ml]*2),  {ml,100,800}, {m1,0,500}, ContourStyle->Green],
-  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seLR"][ml]*2), {ml,100,800}, {m1,0,500}, ContourStyle->Black],
-  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seL"][ml]),    {ml,100,800}, {m1,0,500}, ContourStyle->Directive[Blue,Dashed]],
-  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seR"][ml]),    {ml,100,800}, {m1,0,500}, ContourStyle->Directive[Green,Dashed]],
-  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seLR"][ml]),   {ml,100,800}, {m1,0,500}, ContourStyle->Directive[Black,Dashed]]
+plot["CCWW"] = ContourPlot[LHCBound["1908.08215-CC/WW"]  [mc, m1] / theory["CC"][mc], {mc, 100,  500}, {m1, 0, 220}]
+plot["CCsl"] = ContourPlot[LHCBound["1908.08215-CC/slep"][mc, m1] / theory["CC"][mc], {mc, 100, 1200}, {m1, 0, 700}]
+plot["slep"] = Show[{
+  (* Thick: se+smu, Dashed: one of them; Black: L+R, Red: L, Cyan: R *)
+  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seLR"][ml]*2), {ml,100,800}, {m1,0,500}, ContourStyle->Directive[{Thick,Black}]],
+  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seL"][ml]*2),  {ml,100,800}, {m1,0,500}, ContourStyle->Directive[{Thick,Red}]],
+  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seR"][ml]*2),  {ml,100,800}, {m1,0,500}, ContourStyle->Directive[{Thick,Cyan}]],
+  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seLR"][ml]),   {ml,100,800}, {m1,0,500}, ContourStyle->Directive[Black,Dashed]],
+  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seL"][ml]),    {ml,100,800}, {m1,0,500}, ContourStyle->Directive[Red,Dashed]],
+  ContourPlot[LHCBound["1908.08215-ll2LR"][ml, m1] / (theory["seR"][ml]),    {ml,100,800}, {m1,0,500}, ContourStyle->Directive[Cyan,Dashed]]
 }]
+
+
+atlas["CCWW"] = Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-32/fig_07a.png"];
+atlas["CCsl"] = Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-32/fig_07b.png"];
+Show[{ImageResize[Image[plot["CCWW"]],400],ImagePad[ImageResize[SetAlphaChannel[atlas["CCWW"], 0.2],{381, 391}],{{23,0},{12,0}}]}]
+Show[{ImageResize[Image[plot["CCsl"]],400],ImagePad[ImageResize[SetAlphaChannel[atlas["CCsl"], 0.2],{456, 418}],{{6,0},{8,0}}]}]
+
+
+(* Thick: se+smu, Dashed: one of them; Black: L+R, Red: L, Cyan: R *)
+Print[Show[{#,ImageResize[Image[plot["slep"]],400]}]]&/@{
+  ImagePad[ImageResize[SetAlphaChannel[Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-32/fig_07c.png"], 0.4],{352, 431}],{{27,0},{6,0}}],
+  ImagePad[ImageResize[SetAlphaChannel[Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-32/figaux_01.png"], 0.4],{345, 469}],{{22,0},{0,0}}],
+  ImagePad[ImageResize[SetAlphaChannel[Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-32/figaux_02.png"], 0.4],{345, 469}],{{22,0},{0,0}}],
+  ImagePad[ImageResize[SetAlphaChannel[Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-32/fig_08a.png"], 0.4],{298, 390}],{{30,0},{13,0}}],
+  ImagePad[ImageResize[SetAlphaChannel[Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-32/fig_08b.png"], 0.4],{298, 390}],{{30,0},{13,0}}]
+};
 
 
 
