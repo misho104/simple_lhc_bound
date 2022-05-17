@@ -5,10 +5,10 @@ $\sqrt{s}$ = 13TeV
 
 **CMS** Collaboration, `CMS-EXO-19-010`
 
-- <http://cms-results.web.cern.ch/cms-results/public-results/publications/EXO-19-010/>
+- <https://cms-results.web.cern.ch/cms-results/public-results/publications/EXO-19-010/>
 - Journal:
   [arXiv:2004.05153](https://arxiv.org/abs/2004.05153),
-  [Phys. Lett. **B 806** (2020) 135502](http://doi.org/10.1016/j.physletb.2020.135502)
+  [Phys. Lett. **B 806** (2020) 135502](https://doi.org/10.1016/j.physletb.2020.135502)
 - Data source: <https://www.hepdata.net/record/ins1790827>
 - Data source DOI: <https://doi.org/10.17182/hepdata.95354.v2>
 - Data license: [CC0](https://creativecommons.org/cc0)

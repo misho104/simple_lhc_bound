@@ -4,11 +4,11 @@ Search for two SFOS leptons and mPT in proton-proton collisions at $\sqrt{s}$ = 
 
 **CMS** Collaboration, `CMS-SUS-20-001`
 
-- <http://cms-results.web.cern.ch/cms-results/public-results/publications/SUS-20-001/>
+- <https://cms-results.web.cern.ch/cms-results/public-results/publications/SUS-20-001/>
 - Journal:
   [arXiv:2012.08600](https://arxiv.org/abs/2012.08600),
-  [JHEP **2104** (2021) 125](http://doi.org/10.1007/JHEP04(2021)123)
-- Data source: <http://cms-results.web.cern.ch/cms-results/public-results/publications/SUS-20-001/>, available as `root` files without explicit license. 
+  [JHEP **2104** (2021) 125](https://doi.org/10.1007/JHEP04(2021)123)
+- Data source: <https://cms-results.web.cern.ch/cms-results/public-results/publications/SUS-20-001/>, available as `root` files without explicit license. 
 
 ## Copyright
 

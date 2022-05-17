@@ -7,7 +7,7 @@ Search for electroweakinos in two boosted hadronically-decaying boson and mPT at
 - <https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-41/>
 - Journal:
   [arXiv:2108.07586](https://arxiv.org/abs/2108.07586),
-  [Phys. Rev. **D 104** (2021) 112010](http://doi.org/10.1103/PhysRevD.104.112010)
+  [Phys. Rev. **D 104** (2021) 112010](https://doi.org/10.1103/PhysRevD.104.112010)
 - Data source: <https://www.hepdata.net/record/ins1906174>
 - Data source DOI: <https://doi.org/10.17182/hepdata.104458.v1>
 - Data license: [CC0](https://creativecommons.org/cc0)

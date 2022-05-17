@@ -7,7 +7,7 @@ Search for two SFOS/DFOS leptons and mPT in proton-proton collisions at $\sqrt{s
 - <https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-32/>
 - Journal:
   [arXiv:1908.08215](https://arxiv.org/abs/1908.08215),
-  [Eur. Phys. J. **C80** (2020) 123](http://doi.org/10.1140/epjc/s10052-019-7594-6)
+  [Eur. Phys. J. **C80** (2020) 123](https://doi.org/10.1140/epjc/s10052-019-7594-6)
 - Data source: <https://www.hepdata.net/record/ins1750597>
 - Data source DOI: <https://doi.org/10.17182/hepdata.89413.v2>
 - Data license: [CC0](https://creativecommons.org/cc0)
@@ -22,9 +22,9 @@ Search for two SFOS/DFOS leptons and mPT in proton-proton collisions at $\sqrt{s
 ```mathematica
 AppendTo[$Path, (path to SimpleLHCBound.m)];
 <<SimpleLHCBound`;
-LHCBoundInfo["2012.08600"]
-LHCBoundUsage["2012.08600-ll"]
-LHCBound["2012.08600-ll"][300, 50]
+LHCBoundInfo["1908.08215"]
+LHCBoundUsage["1908.08215-ll2LR"]
+LHCBound["1908.08215-ll2LR"][300, 50]
 ```
 
 ## Citation guide
