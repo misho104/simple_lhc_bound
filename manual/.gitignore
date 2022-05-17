@@ -1,0 +1,16 @@
+*.dvi
+*.aux
+*.fls
+*.ps
+*.log
+*.fdb_latexmk
+*~
+*.out
+*.blg
+*.bbl
+*.synctex.gz
+*.bak
+*.xmpi
+*.xmpdata
+_minted-*
+

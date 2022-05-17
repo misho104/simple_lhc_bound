@@ -1,0 +1,118 @@
+%#!lualatex
+% Time-stamp: <2022-05-16 18:21:48>
+
+\begin{filecontents*}{\jobname.xmpdata}
+  \Author{Sho Iwamoto / Misho}
+  \Title{Analyses in simple LHC bound}
+  \Keywords{physics \sep high-energy physics \sep particle physics}
+  \Copyright{2021–2022 Sho Iwamoto / Misho}
+  \CopyrightURL{https://www.misho-web.com/}
+  \PublicationType{manual}
+  \Language{en-US}
+\end{filecontents*}
+
+\documentclass{MishoNote}
+\bibliographystyle{utphys28mod}
+
+\newcommand\neut[1][\relax]{\tilde\chi^0_{#1}}
+\newcommand\charPM[1][\relax]{\tilde\chi^\pm_{#1}}
+\newcommand\charP[1][\relax]{\tilde\chi^+_{#1}}
+\newcommand\charM[1][\relax]{\tilde\chi^-_{#1}}
+\newcommand\wL{\w L}
+\newcommand\wR{\w R}
+\newcommand\tauh{\tau\w h}
+\newcommand\mpT{p\w{T}\wup*{miss}}
+\newcommand\bino{\tilde B}
+\newcommand\wino[1]{\tilde W^{#1}}
+\newcommand\winoP{\wino{+}}
+\newcommand\winoM{\wino{-}}
+\newcommand\winoPM{\wino{\pm}}
+\newcommand\hino[1]{\tilde H^{#1}}
+\newcommand\hinoP{\hino{+}}
+\newcommand\hinoM{\hino{-}}
+\newcommand\hinoPM{\hino{\pm}}
+\newcommand\slep{\tilde\ell}
+\newcommand\slepL{\tilde\ell\wL}
+\newcommand\slepR{\tilde\ell\wR}
+\newcommand\snu{\tilde\nu}
+
+\newcommand\wSFOS{\wup*{SFOS}}
+\newcommand\wZlike{\wup*{$Z$-like}}
+
+\begin{document}
+\setcounter{page}{0}
+
+\begin{maketitle}
+\vspace{20mm}
+\noindent
+This note summarizes analyses available on the Mathematica package \code|simple_LHC_bound|, which collects LHC results with $\sqrt{s}>13\TeV$ related to non-colored SUSY particles.
+Preliminary results are not included.
+For references and a citation guideline, see \code|readme.md| files included in respective analyses.
+
+
+Throughout this note, $l=(e, \mu, \tau)$ and $\ell=(e, \mu)$.
+Tau-leptons $\tau^\pm$ are labelled by its decay product: $\tauh$ means those decaying hadronically and are observed as tau jets, while $\tau_\ell$ means it decays as $\tau^\pm\to\ell^\pm\nu\nu$.
+SFOS denotes an $e^+e^-$ or $\mu^+\mu^-$ pair, standing for ``same-flavor opposite sign.''
+The missing transverse momentum is denoted by $\mpT$.
+
+Colored SUSY particles and heavy Higgs bosons are assumed to be decoupled unless otherwise noted.
+In addition to $\neut[i]$ and $\charPM[j]$ ($i=1,2,3,4$ and $j=1,2$), which denote the $i$-th lightest neutralino and the $j$-th lightest chargino, respectively, we use 
+$\bino$, $\wino0$, and $\hino0$ to describe particles that are assumed to be mostly bino-like, wino-like, or Higgsino-like, respectively, and similary $\winoPM$ and $\hinoPM$.
+Note that $\hino0$ is made of two Majorana fermions, i.e., $\tilde H\w u^0$ and $\tilde H\w d^0$ with a Dirac-type mass term, and neutralino pair-production $pp\to\neut[i]\neut[j]$ for Higgsino-like neutralinos happens only for $i\neq j$.
+
+
+
+\end{maketitle}
+
+\section[Standard NC searches]{Standard neutralino--chargino (NC) searches}
+
+\begin{description}
+\item[2012.08600/C] NC/ZW by $2\ell\wZlike+\text{jet(s)}+\mpT$ signature.
+\item[2108.07586/A] NC/ZW and NC/HW.
+\end{description}
+
+
+\section[Standard CC searches]{Standard chargino-pair (CC) searches}
+\begin{itemize}
+ \item CC/WW for $\charP\charM\to W^+W^-\mpT$.
+ \item CC/slep for $\charP\charM$ into $(\slepL,\snu)\times(\slepL,\snu)$, which anyway results in $2\ell\wSFOS$ signature.
+\end{itemize}
+
+
+\begin{description}
+\item[1908.08215/A] $\charP\charM$ to $2\ell\wSFOS+\mpT$. Both of CC/WW and CC/slep.
+\item[2108.07586/A] CC/WW.
+\end{description}
+
+
+
+\section[Standard LL searches]{Standard slepton-pair (LL) searches}
+\begin{description}
+\item[1908.08215/A] Standard $2\ell\wSFOS+\mpT$.
+\item[2012.08600/C] Standard $2\ell\wSFOS+\mpT$.
+\end{description}
+
+
+\section[Inclusive ino searches]{Inclusive chargino/neutralino searches}
+\begin{description}
+\item[2108.07586/A] Productions of all chargino/neutralino combinations.
+\begin{itemize}
+ \item Wino-like $\charPM[1]\neut[2]$ with bino-like $\neut[1]$ and decoupled sleptons; CC/WW plus NC/(H|Z)W are all considered.
+ \item Higgsino-like $\charPM[1]\neut[2]\neut[3]$ with bino-like $\neut[1]$ and decoupled sleptons; CC/WW, N2C/(H|Z)W, N3C/(H|Z)W, and NN/(H|Z)(H|Z) are all considered.
+\end{itemize}
+\end{description}
+
+
+\section[Long-lived chargino searches]{Long-lived chargino searches}
+\begin{description}
+\item[2004.05153/C] Standard centimeter-track searches for quasi-LSP $\winoPM$ and $\hinoPM$.
+\item[2201.02472/A] Standard centimeter-track searches for quasi-LSP $\winoPM$ and $\hinoPM$.
+\end{description}
+
+
+
+
+\end{document}
+
+
+
