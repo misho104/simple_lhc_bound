@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2022-05-21 16:09:39> *)
+(* Time-Stamp: <2022-05-22 14:38:02> *)
 
 (* :Title: Simple LHC Bound *)
 (* :Context: SimpleLHCBound` *)
@@ -130,9 +130,22 @@ DelaunayToElementMesh[dmesh_] := NDSolve`FEM`ToElementMesh[
   }
 ];
 
+GetMesh[table_, squeeze_, scale_] := Block[{
+    delaunay
+  },
+  delaunay = Quiet[
+    TransformedRegion[
+      DelaunayMesh[{#[[1]], scale * #[[2]] - #[[1]] * squeeze}&/@table],
+      {#[[1]], (#[[2]] + #[[1]] * squeeze) / scale}&
+    ], MeshRegion::dgcellr];
+  DelaunayToElementMesh[delaunay]
+]
+
 (* Interpolation *)
 
 Options[IP] = {
+  "SkewDelta"->0.0001,
+  "VerticalScaling"->1,
   InterpolationOrder->1,
   Method->Automatic,
   PeriodicInterpolation->False,
@@ -140,46 +153,81 @@ Options[IP] = {
 };
 
 IP["Log>Log", table_, OptionsPattern[]] := With[{
-    ip = Interpolation[{Log10[#[[1]]], SafeLog10[#[[2]]]} &/@ table, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])]
+    ip = Interpolation[
+      {Log10[#[[1]]], SafeLog10[#[[2]]]} &/@ table,
+      InterpolationOrder->OptionValue[InterpolationOrder],
+      Method->OptionValue[Method],
+      PeriodicInterpolation->OptionValue[PeriodicInterpolation],
+      "ExtrapolationHandler"->OptionValue["ExtrapolationHandler"]
+     ]
   },
   10^(ip[Log10[#]])&]
 
 IP["LogLog>Log", table_, OptionsPattern[]] := With[{
-    ip = Interpolation[{Log10[#[[1]]], Log10[#[[2]]], SafeLog10[#[[3]]]} &/@ table, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])]
+    ip = Interpolation[
+      {Log10[#[[1]]], Log10[#[[2]]], SafeLog10[#[[3]]]} &/@ table,
+      InterpolationOrder->OptionValue[InterpolationOrder],
+      Method->OptionValue[Method],
+      PeriodicInterpolation->OptionValue[PeriodicInterpolation],
+      "ExtrapolationHandler"->OptionValue["ExtrapolationHandler"]
+    ]
   },
   10^(ip[Log10[#1], Log10[#2]])&]
 
 IP["LinLin>Log:Delaunay", table_, OptionsPattern[]] := Module[{
    key = {#[[1]], #[[2]]} &/@ table,
    value = SafeLog10[#[[3]]] &/@ table,
-   mesh, ip, delta = 0.0001},
-  (* squeeze a bit *)
-  Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
-        MeshRegion::dgcellr];
-  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio]]];
-  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
+   mesh, ip},
+  mesh = GetMesh[key, OptionValue["SkewDelta"], OptionValue["VerticalScaling"]];
+  If[$Debug, Show[{Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio], ListPlot[key]}]//Print];
+  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value,
+    InterpolationOrder->OptionValue[InterpolationOrder],
+    Method->OptionValue[Method],
+    PeriodicInterpolation->OptionValue[PeriodicInterpolation],
+    "ExtrapolationHandler"->OptionValue["ExtrapolationHandler"]
+  ];
   10^(ip[#1, #2])&]
 
 IP["LogLin>Log:Delaunay", table_, OptionsPattern[]] := Module[{
    key = {Log10[#[[1]]], #[[2]]} &/@ table,
    value = SafeLog10[#[[3]]] &/@ table,
-   mesh, ip, delta = 0.0001},
-  (* squeeze a bit *)
-  Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
-        MeshRegion::dgcellr];
-  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio]]];
-  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
+   mesh, ip},
+  mesh = GetMesh[key, OptionValue["SkewDelta"], OptionValue["VerticalScaling"]];
+  If[$Debug, Show[{Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio], ListPlot[key]}]//Print];
+  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value,
+    InterpolationOrder->OptionValue[InterpolationOrder],
+    Method->OptionValue[Method],
+    PeriodicInterpolation->OptionValue[PeriodicInterpolation],
+    "ExtrapolationHandler"->OptionValue["ExtrapolationHandler"]
+  ];
   10^(ip[Log10[#1], #2])&]
+
+IP["LinLog>Log:Delaunay", table_, OptionsPattern[]] := Module[{
+   key = {#[[1]], Log10[#[[2]]]} &/@ table,
+   value = SafeLog10[#[[3]]] &/@ table,
+   mesh, ip, delta = 0.000001},
+  mesh = GetMesh[key, OptionValue["SkewDelta"], OptionValue["VerticalScaling"]];
+  If[$Debug, Show[{Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio], ListPlot[key]}]//Print];
+  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value,
+    InterpolationOrder->OptionValue[InterpolationOrder],
+    Method->OptionValue[Method],
+    PeriodicInterpolation->OptionValue[PeriodicInterpolation],
+    "ExtrapolationHandler"->OptionValue["ExtrapolationHandler"]
+  ];
+  10^(ip[#1, Log10[#2]])&]
 
 IP["LogLog>Log:Delaunay", table_, OptionsPattern[]] := Module[{
    key = {Log10[#[[1]]], Log10[#[[2]]]} &/@ table,
    value = SafeLog10[#[[3]]] &/@ table,
-   mesh, ip, delta = 0.0001},
-  (* squeeze a bit *)
-  Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
-        MeshRegion::dgcellr];
-  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio]]];
-  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
+   mesh, ip},
+  mesh = GetMesh[key, OptionValue["SkewDelta"], OptionValue["VerticalScaling"]];
+  If[$Debug, Show[{Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio], ListPlot[key]}]//Print];
+  ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value,
+    InterpolationOrder->OptionValue[InterpolationOrder],
+    Method->OptionValue[Method],
+    PeriodicInterpolation->OptionValue[PeriodicInterpolation],
+    "ExtrapolationHandler"->OptionValue["ExtrapolationHandler"]
+  ];
   10^(ip[Log10[#1], Log10[#2]])&]
 
 
