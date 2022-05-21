@@ -11,7 +11,7 @@ SetDirectory[NotebookDirectory[]];
 $Path = Append[$Path, ParentDirectory[NotebookDirectory[]]]//DeleteDuplicates;
 
 
-Get["../contrib/PlotTools.m"];
+Get["../contrib/PlotTools.wl"];
 <<SimpleLHCBound`
 LHCBoundInfo["2201.02472"]
 LHCBoundUsage["2201.02472-Wino"]

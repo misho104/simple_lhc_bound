@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2022-04-06 15:36:33> *)
+(* Time-Stamp: <2022-05-21 16:09:39> *)
 
 (* :Title: Simple LHC Bound *)
 (* :Context: SimpleLHCBound` *)
@@ -156,7 +156,7 @@ IP["LinLin>Log:Delaunay", table_, OptionsPattern[]] := Module[{
   (* squeeze a bit *)
   Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
         MeshRegion::dgcellr];
-  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True]]];
+  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio]]];
   ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
   10^(ip[#1, #2])&]
 
@@ -167,7 +167,7 @@ IP["LogLin>Log:Delaunay", table_, OptionsPattern[]] := Module[{
   (* squeeze a bit *)
   Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
         MeshRegion::dgcellr];
-  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True]]];
+  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio]]];
   ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
   10^(ip[Log10[#1], #2])&]
 
@@ -178,7 +178,7 @@ IP["LogLog>Log:Delaunay", table_, OptionsPattern[]] := Module[{
   (* squeeze a bit *)
   Quiet[mesh = DelaunayToElementMesh[TransformedRegion[DelaunayMesh[{#[[1]],#[[2]]-#[[1]]*delta}&/@key], {#[[1]], #[[2]]+#[[1]]*delta}&]],
         MeshRegion::dgcellr];
-  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True]]];
+  If[$Debug, Print[Graphics[mesh["Wireframe"][[1]], Axes->True, AspectRatio->1/GoldenRatio]]];
   ip = NDSolve`FEM`ElementMeshInterpolation[{mesh}, value, Sequence@@(#[[1]]->OptionValue[#[[1]]]&/@Options[IP])];
   10^(ip[Log10[#1], Log10[#2]])&]
 
