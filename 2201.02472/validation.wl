@@ -7,12 +7,15 @@
    You may not use this file except in compliance with it. *)
 
 
-SetDirectory[NotebookDirectory[]];
-$Path = Append[$Path, ParentDirectory[NotebookDirectory[]]]//DeleteDuplicates;
+If[$FrontEnd =!= Null, SetDirectory[NotebookDirectory[]]];
+$Path = Append[$Path, ParentDirectory[]]//DeleteDuplicates;
 
 
 Get["../contrib/PlotTools.wl"];
 <<SimpleLHCBound`
+<<SimpleLHCBoundValidator`
+SimpleLHCBound`Private`$Debug = True;
+SimpleLHCBoundValidator`Private`$OutputPDF = ($FrontEnd === Null);
 LHCBoundInfo["2201.02472"]
 LHCBoundUsage["2201.02472-Wino"]
 LHCBound["2201.02472-Wino"][0.2 * 10^-9, 400]
@@ -30,12 +33,13 @@ theory["Wino"] = n2c1["Wino"][#]+c1c1["Wino"][#]&;
 theory["Higgsino"] = 2*n2c1["Higgsino"][#]+c1c1["Higgsino"][#]&;
 
 
-WinoPlot = ContourPlot[LHCBound["2201.02472-Wino"][10^t, m] / theory["Wino"][m], {m, 90, 1000}, {t, -11, -8}, Contours->{1}, ContourShading->None]
-HinoPlot = ContourPlot[LHCBound["2201.02472-Higgsino"][10^t, m] / theory["Higgsino"][m], {m, 90, 1000}, {t, -11, -8}, Contours->{1},ContourShading->None]
+SetOptions[ContourPlot, Contours->{1}, ContourShading->None, FrameTicks->{{FakeLog10Ticks, None}, {LinTicks, None}}, ContourStyle->{{Blue, Thick}}];
+plot["Wino"] = ContourPlot[LHCBound["2201.02472-Wino"][10^t, m] / theory["Wino"][m], {m, 90, 1000}, {t, -11, -8}];
+plot["Hino"] = ContourPlot[LHCBound["2201.02472-Higgsino"][10^t, m] / theory["Higgsino"][m], {m, 90, 1000}, {t, -11, -8}];
 
 
-ATLW = Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-19/fig_07.png"];
-ATLH = Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-19/fig_08a.png"];
+atlas["Wino"] = Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-19/fig_07.png"];
+atlas["Hino"] = Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-19/fig_08a.png"];
 
 
 (* ::Text:: *)
@@ -44,8 +48,5 @@ ATLH = Import["https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2018-1
 (*Note that this program relies on the value "0.037 fb" in Table 8 of the article as the 95%-CL upper bound.*)
 
 
-Show[{ImageResize[Image[WinoPlot],400],ImageCrop[ImageResize[SetAlphaChannel[ATLW, 0.2],{355, 377}],{433,451}]}]
-Show[{ImageResize[Image[HinoPlot],400],ImageCrop[ImageResize[SetAlphaChannel[ATLH, 0.2],{372, 377}],{418,451}]}]
-
-
-
+PlotOverlay[plot["Wino"], atlas["Wino"], {{400.0, 425.1}, {90, -11}, {40.24, 43.23}, 1073.3}]
+PlotOverlay[plot["Hino"], atlas["Hino"], {{400.0, 405.1}, {90, -11}, {56.2, 41.19}, 1126.3}]

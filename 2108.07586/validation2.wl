@@ -1,19 +1,21 @@
 (* ::Package:: *)
 
-(* Time-Stamp: <2022-4-9 20:32:39> *)
+(* Time-Stamp: <2022-05-22 20:29:28> *)
 
 (* Copyright 2022 Sho Iwamoto / Misho
    This file is licensed under the Apache License, Version 2.0.
    You may not use this file except in compliance with it. *)
 
 
-SetDirectory[NotebookDirectory[]];
-$Path = Append[$Path, ParentDirectory[NotebookDirectory[]]]//DeleteDuplicates;
+If[$FrontEnd =!= Null, SetDirectory[NotebookDirectory[]]];
+$Path = Append[$Path, ParentDirectory[]]//DeleteDuplicates;
 
 
 Get["../contrib/PlotTools.wl"];
 <<SimpleLHCBound`
 <<SimpleLHCBoundValidator`
+SimpleLHCBound`Private`$Debug=True;
+SimpleLHCBoundValidator`Private`$OutputPDF = ($FrontEnd === Null);
 LHCBoundInfo["2108.07586"]
 LHCBoundUsage["2108.07586-Fig12-WB"]
 LHCBoundTable["2108.07586-Fig12-HB"];

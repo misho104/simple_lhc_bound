@@ -7,14 +7,15 @@
    You may not use this file except in compliance with it. *)
 
 
-SetDirectory[NotebookDirectory[]];
-$Path = Append[$Path, ParentDirectory[NotebookDirectory[]]]//DeleteDuplicates;
+If[$FrontEnd =!= Null, SetDirectory[NotebookDirectory[]]];
+$Path = Append[$Path, ParentDirectory[]]//DeleteDuplicates;
 
 
 Get["../contrib/PlotTools.wl"];
 <<SimpleLHCBound`
 <<SimpleLHCBoundValidator`
 SimpleLHCBound`Private`$Debug=True;
+SimpleLHCBoundValidator`Private`$OutputPDF = ($FrontEnd === Null);
 LHCBoundInfo["2108.07586"]
 LHCBoundUsage["2108.07586-HH/grav"]
 LHCBound["2108.07586-HH/grav"][400, 1]

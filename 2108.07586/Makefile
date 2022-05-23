@@ -1,4 +1,4 @@
-.PHONY: all dev clean
+.PHONY: all dev clean validation
 
 include ../Makefile.config
 
@@ -18,3 +18,7 @@ clean:
 
 $(XS): %.xs :
 	susy-xs export --format Math --no-unc $* > $@
+
+validation: dev
+	echo 'Get["validation.wl"]' | $(WOLFRAM)
+	echo 'Get["validation2.wl"]' | $(WOLFRAM)
