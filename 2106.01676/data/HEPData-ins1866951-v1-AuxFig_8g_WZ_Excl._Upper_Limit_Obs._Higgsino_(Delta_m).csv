@@ -1,0 +1,76 @@
+#: table_doi: 10.17182/hepdata.95751.v1/t84
+#: name: AuxFig 8g WZ Excl. Upper Limit Obs. Higgsino ($\Delta m$)
+#: description:  Exclusion limits obtained for the $W\!Z$-mediated model, for the (1st and 2nd row) wino/bino (+) scenario, (3rd row) the wino/bino (-) scenario, and (4th row) the higgsino scenario, as in Figure 16. Black numbers represent the observed (a) and expected (b) upper cross-section limits.
+#: data_file: auxfig_8g_wz_excl._upper_limit_obs._higgsino_delta_m.yaml
+#: keyword cmenergies: 13000
+#: keyword reactions: P P --> CHARGINO+ NEUTRALINO2 X | P P --> CHARGINO- NEUTRALINO2 X
+#: keyword phrases: SUSY | Supersymmetry | Proton-Proton Scattering | Electroweak
+#: keyword observables: CLS
+$m(\tilde{\chi}_{2}^{0})$ [GeV],"$\Delta m(\tilde{\chi}_{2}^{0},\tilde{\chi}_{1}^{0})$ [GeV]",Observed Upper Limit on Cross Section [pb]
+185.0,10.0,0.515
+280.0,30.0,0.666
+235.0,10.0,0.505
+178.0,3.0,4.26
+220.0,20.0,1.07
+140.0,60.0,0.69
+255.0,5.0,1.31
+145.0,20.0,1.45
+205.0,5.0,1.37
+160.0,60.0,0.544
+126.5,1.5,80.5
+170.0,20.0,1.28
+240.0,15.0,0.863
+253.0,3.0,4.73
+190.0,15.0,0.796
+128.0,3.0,4.01
+100.0,20.0,2.18
+130.0,5.0,1.36
+185.0,60.0,0.53
+210.0,10.0,0.467
+110.0,10.0,0.803
+265.0,15.0,0.777
+130.0,30.0,1.74
+203.0,3.0,3.65
+101.5,1.5,73.0
+230.0,30.0,0.718
+360.0,60.0,0.341
+165.0,15.0,0.934
+160.0,10.0,0.557
+135.0,10.0,0.604
+155.0,5.0,1.37
+310.0,60.0,0.386
+140.0,40.0,0.932
+230.0,5.0,1.32
+202.0,2.0,24.9
+260.0,10.0,0.588
+290.0,40.0,0.331
+180.0,30.0,0.985
+190.0,40.0,0.573
+300.0,50.0,0.38
+100.0,60.0,0.932
+260.0,60.0,0.443
+150.0,50.0,0.7
+152.0,2.0,15.1
+127.0,2.0,12.8
+105.0,5.0,1.5
+153.0,3.0,3.72
+120.0,40.0,1.29
+165.0,40.0,0.67
+250.0,50.0,0.424
+103.0,3.0,4.18
+140.0,15.0,1.14
+215.0,15.0,0.799
+110.0,30.0,2.07
+270.0,20.0,0.975
+240.0,40.0,0.46
+195.0,20.0,1.14
+100.0,40.0,1.47
+115.0,15.0,1.27
+102.0,2.0,11.5
+155.0,30.0,1.39
+210.0,60.0,0.482
+180.0,5.0,1.18
+101.0,1.0,2710.0
+120.0,20.0,1.83
+200.0,50.0,0.523
+

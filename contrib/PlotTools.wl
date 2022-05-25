@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* :Time-Stamp: <2022-05-22 19:41:08> *)
+(* :Time-Stamp: <2022-05-25 19:20:25> *)
 (* :Package Version: 1.1.0 *)
 
 (* :Title: PlotTools *)
@@ -265,7 +265,7 @@ SetOptions[#,
   FrameTicks -> FrameTicksType[#],
   ImagePadding -> {{60, 20}, {60, 20}} Pixel,
   PlotRangePadding -> None
-] &/@ {Plot, LogPlot, LogLogPlot, LogLinearPlot, ListPlot, ListLogPlot, ListLogLogPlot, ListLogLinearPlot, ContourPlot, ListContourPlot, StackedListPlot, ListStepPlot};
+] &/@ {Plot, LogPlot, LogLogPlot, LogLinearPlot, ListPlot, ListLogPlot, ListLogLogPlot, ListLogLinearPlot, ContourPlot, ListContourPlot, StackedListPlot, ListStepPlot, RegionPlot};
 
 
 (* ::Subsubsection:: *)
